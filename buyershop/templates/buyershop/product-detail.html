@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+
+<br><br>
+
+    <!-- ***** Product Area Starts ***** -->
+    <form action="." method="post">
+        {% csrf_token %}
+        <section class="section" id="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                <div class="left-images">
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                   <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="{{ product.cover.url }}" class="d-block w-100" alt="...">
+                      </div>
+                    {% for detail_image in detail_images %}
+                            <div class="carousel-item active-item">
+                              <img src="{{ detail_image.images.url }}" class="d-block w-100" alt="{{ product.name }}">
+                            </div>
+                    {% endfor %}
+                  </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="right-content">
+                    <h4>{{ product.name }}</h4>
+                    <span class="price">{{ product.price }}</span>
+
+
+                    <span>{{ product.sex }} • {{ product.category }}</span>
+                    <span>{{ product.description }}.</span>
+                    <div class="quantity-content">
+                        <div class="left-content">
+                            <h6>No. of Orders</h6>
+                        </div>
+                        <div class="right-content">
+                            <div class="quantity buttons_added">
+                                <input type="number"  min="1" name="quantity" value="1" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                        <h4 class="total">Итого: 100</h4>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-light">Добавить в корзину</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Product Area Ends ***** -->
+    </form>
+</body>
+
+<script>
+    let price = document.querySelector('.price').innerHTML
+    let quantity = document.getElementsByName('quantity')[0]
+    let total = document.querySelector('.total')
+    quantity.addEventListener('change', (event) => {
+        let total_price = event.target.value * parseFloat(price)
+        total.innerHTML = `Итого: ${total_price}`
+        }
+        )
+
+
+</script>
+
+{% endblock content %}
+

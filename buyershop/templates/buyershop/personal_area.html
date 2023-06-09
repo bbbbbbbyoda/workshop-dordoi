@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<body>
+<br><br>
+    <!-- ***** About Area Starts ***** -->
+    <div class="about-us">
+        <div class="container-fluid">
+            <div class="container" style="width: 55%;">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-image">
+                        <img src="{% static 'images/about-left-image.jpg' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="right-content">
+                        <h4>Добро пожаловать в ваш личный кабинет!</h4>
+                        <p style="font-size:15px;">Здесь вы можете управлять своими личными данными и настраивать аккаунт по своему усмотрению. Мы ценим вашу приватность и обеспечиваем безопасность ваших данных. Ниже представлены доступные вам возможности:</p>
+                        <p style="font-size:15px;">Профиль:<br>
+                                                    &bull;  Имя пользователя<br>
+                                                    &bull;  Адрес электронной почты<br>
+                                                    &bull;  Номер телефона<br><br>
+                                                    Если у вас возникли вопросы или проблемы, не стесняйтесь обращаться в нашу службу поддержки, и мы с радостью поможем вам.
+                                                    Спасибо за использование нашего сервиса. Мы ценим ваше участие и надеемся, что ваш личный кабинет будет полезен для вас!</p><br>
+                        <a href="#" data-toggle="modal" data-target="#UserChangeModal">Изменить данные</a>
+                        <ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- User change Modal-->
+      <div class="modal fade" id="UserChangeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UserChangeModalLabel">Создать вопрос</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    {{ form.media.css }}
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                {{ form.phone_number|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ form.username|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Сохранить</button>
+                    </form>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    {{ form.media.js }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** About Area Ends ***** -->
+
+  </body>
+
+
+
+{% endblock content %}

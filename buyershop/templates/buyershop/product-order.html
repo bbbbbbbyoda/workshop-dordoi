@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mt-5">
+	<form method="post" action=".">
+		{% csrf_token %}
+		<section class="h-100 h-custom mt-5" style="background-color: #00000;">
+			<div class="container py-5 h-100">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-12">
+						<div class="card card-registration card-registration-2" style="border-radius: 15px;">
+							<div class="card-body p-0">
+								<div class="row g-0">
+									<div class="col-lg-8">
+										<div class="p-5 first-part">
+											<div class="d-flex justify-content-between align-items-center mb-5">
+												<h1 class="fw-bold mb-0 text-black">Корзина</h1>
+												<h6 class="mb-0 text-muted">{{ order_items.count }} продукта</h6>
+											</div>
+											<hr class="my-4">
+											{% for order_item in order_items %}
+											<div class="row mb-4 d-flex justify-content-between align-items-center">
+												<div class="col-md-2 col-lg-2 col-xl-2">
+													<img
+															src="{{ order_item.product.cover.url }}"
+															class="img-fluid rounded-3">
+												</div>
+												<div class="col-md-3 col-lg-3 col-xl-3">
+													<h6 class="text-muted">{{ order_item.product.category }}</h6>
+													<h6 class="text-black mb-0">{{ order_item.product.name }}</h6>
+												</div>
+												<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+													<input id="order-{{ order_item.id }}" data-price="{{ order_item.product.price }}" min="0" name="{{ order_item.id }}" value="{{ order_item.quantity }}" type="number"
+														   class="form-control form-control-sm quantity"
+													/>
+												</div>
+												<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+													<h6 id="price-{{order_item.id}}" class="mb-0 total_price">{{ order_item.total_price }} руб.</h6>
+												</div>
+												<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+													<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+												</div>
+											</div>
+											{% endfor %}
+										</div>
+									</div>
+									<div class="col-lg-4  bg-grey">
+										<div class="p-5">
+											<h3 class="fw-bold mb-5 mt-2 pt-1">Итог</h3>
+											<hr class="my-4">
+											<div class="d-flex justify-content-between mb-4">
+												<h6 class="text-uppercase">Кол-во продуктов: {{ order_items.count }}</h6>
+											</div>
+											<hr class="my-4">
+
+											<div class="d-flex justify-content-between mb-5">
+												<h6 class="text-uppercase">Итоговая сумма: </h6>
+												<h6 id="grant_total">{{ grant_total }} руб.</h6>
+											</div>
+											<button type="submit" class="btn btn-dark btn-block btn-sm" data-mdb-ripple-color="dark">Оформить</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</form>
+</div>
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/order.js' %}"></script>
+{% endblock js %}

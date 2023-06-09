@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- ***** Ordering Area Starts ***** -->
+    <section class="mt-5 pt-5">
+        <div class="container py-5">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12">
+                    <div class="card card-registration" style="border-radius: 15px;" >
+                        <div class="card-body p-0">
+                            <div class="p-5" style="background-color: #f0f0f0;">
+                                <div class="text-center">
+                                    <h1 class="fw-bold">Заказать шитье одежды</h1>
+                                </div>
+                                <hr class="my-4">
+                                <form action="." method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="id_name" class="form-label">Название швейного заказа:</label>
+                                        <input type="text" name="name" maxlength="128" required="" class="form-control" id="id_name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="id_description" class="form-label">Описание заказа:</label>
+                                        <textarea name="description" maxlength="1024" required="" class="form-control" id="id_description" rows="5"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="id_files" class="form-label">Выберите файлы:</label>
+                                        <input type="file" name="files" multiple="" class="form-control" id="id_files">
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="btn btn-primary" type="submit">Отправить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ***** Ordering Area Ends ***** -->
+
+
+
+{% endblock content %}
